@@ -74,8 +74,7 @@ module LapGen
         arr[i][j] = (a1-1)/4
       }}
     }
-    max=arr.map(&:max).max
-    arr.map{|l|l.map{|a|a/max}}
+    arr.map{|l|l.map{|a|a}}
   end
   def self.to_file arr, file
     size = arr.size
@@ -98,7 +97,6 @@ arrs=text.chars.map{|c|
 }
 
 size=arrs[0].size
-
 per=12
 (arrs.size*per).times{|i|
   i1 = i/per%arrs.size
@@ -111,12 +109,12 @@ per=12
     f1=arrs[i1][ix][iy]
     f2=arrs[i2][ix][iy]
     f=f1*(1-t)+t*f2
-    c = f<0 ? 0 : 1-Math.exp(-size*f/8)
+    c = f<0 ? 0 : 1-Math.exp(-f)
     p c if c>1
     img[ix,iy]=(c*0xff).to_i
   }}
   # col=cols[i1].zip(cols[i2]).map{|a,b|a*(1-t)+b*t}
-  col=[0,0.5,1]
+  col=[0,1,0.5]
   img2=ChunkyPNG::Image.new size/2, size/2
   (size/2).times{|i|(size/2).times{|j|
     a = (img[2*i,2*j]+img[2*i+1,2*j]+img[2*i,2*j+1]+img[2*i+1,2*j+1])/4
