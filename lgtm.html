@@ -1,0 +1,26 @@
+<body>
+<script>
+function gen(text,fontsize,y){
+  var size=64
+  var canvas=document.createElement('canvas')
+  canvas.width=canvas.height=size
+  var g=canvas.getContext('2d')
+  g.clearRect(0,0,size,size)
+  g.font = (size*1.2*(fontsize||1))+'px Courier'
+  g.textBaseline = 'middle'
+  g.textAlign = 'center'
+  g.fillStyle='black'
+  g.fillText(text, size/2, size/2+y)
+  return canvas
+}
+var text=['L','G','T','M','👍']
+document.body.innerHTML=''
+for(var i=0;i<text.length;i++){
+  var c=gen(text[i],i==4?0.6:1,i==4?4:0)
+  var img=new Image()
+  img.style.width=img.style.height=c.width+'px'
+  img.style.border='1px solid black'
+  img.src=c.toDataURL()
+  document.body.appendChild(img)
+}
+</script>
